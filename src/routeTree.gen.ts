@@ -10,13 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AssistantRouteImport } from './routes/assistant'
+import { Route as BookRouteImport } from './routes/book'
 import { Route as ChecklistRouteImport } from './routes/checklist'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TrackRouteImport } from './routes/track'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssistantRoute = AssistantRouteImport.update({
@@ -24,9 +35,24 @@ const AssistantRoute = AssistantRouteImport.update({
   path: '/assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookRoute = BookRouteImport.update({
+  id: '/book',
+  path: '/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChecklistRoute = ChecklistRouteImport.update({
   id: '/checklist',
   path: '/checklist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -34,39 +60,104 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackRoute = TrackRouteImport.update({
+  id: '/track',
+  path: '/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/assistant': typeof AssistantRoute
+  '/book': typeof BookRoute
   '/checklist': typeof ChecklistRoute
+  '/contact': typeof ContactRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/track': typeof TrackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/assistant': typeof AssistantRoute
+  '/book': typeof BookRoute
   '/checklist': typeof ChecklistRoute
+  '/contact': typeof ContactRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/track': typeof TrackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/assistant': typeof AssistantRoute
+  '/book': typeof BookRoute
   '/checklist': typeof ChecklistRoute
+  '/contact': typeof ContactRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/track': typeof TrackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assistant' | '/checklist' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/assistant'
+    | '/book'
+    | '/checklist'
+    | '/contact'
+    | '/how-it-works'
+    | '/services'
+    | '/sitemap.xml'
+    | '/track'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assistant' | '/checklist' | '/services'
-  id: '__root__' | '/' | '/assistant' | '/checklist' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/assistant'
+    | '/book'
+    | '/checklist'
+    | '/contact'
+    | '/how-it-works'
+    | '/services'
+    | '/sitemap.xml'
+    | '/track'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/assistant'
+    | '/book'
+    | '/checklist'
+    | '/contact'
+    | '/how-it-works'
+    | '/services'
+    | '/sitemap.xml'
+    | '/track'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AssistantRoute: typeof AssistantRoute
+  BookRoute: typeof BookRoute
   ChecklistRoute: typeof ChecklistRoute
+  ContactRoute: typeof ContactRoute
+  HowItWorksRoute: typeof HowItWorksRoute
   ServicesRoute: typeof ServicesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TrackRoute: typeof TrackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -78,11 +169,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assistant': {
       id: '/assistant'
       path: '/assistant'
       fullPath: '/assistant'
       preLoaderRoute: typeof AssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book': {
+      id: '/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checklist': {
@@ -92,6 +197,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChecklistRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -99,14 +218,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/track': {
+      id: '/track'
+      path: '/track'
+      fullPath: '/track'
+      preLoaderRoute: typeof TrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AssistantRoute: AssistantRoute,
+  BookRoute: BookRoute,
   ChecklistRoute: ChecklistRoute,
+  ContactRoute: ContactRoute,
+  HowItWorksRoute: HowItWorksRoute,
   ServicesRoute: ServicesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TrackRoute: TrackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
