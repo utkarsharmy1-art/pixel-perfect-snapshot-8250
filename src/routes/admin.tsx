@@ -320,6 +320,7 @@ function SettingsPanel() {
   useEffect(() => { if (data && !form) setForm({ phone: data.phone, email: data.email, address: data.address, hours: data.hours, announcement: data.announcement }); }, [data, form]);
   if (isLoading || !form) return <Loader2 className="mt-8 animate-spin" />;
   async function save() {
+    if (!form) return;
     const { error } = await supabase.from("site_settings").update({ ...form, whatsapp: form.phone, updated_at: new Date().toISOString() }).eq("id", 1);
     if (error) return void toast.error(error.message);
     toast.success("Saved — the website shows the new details");
