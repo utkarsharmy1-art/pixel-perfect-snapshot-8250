@@ -14,16 +14,236 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_chat_events: {
+        Row: {
+          created_at: string
+          id: string
+          language: string | null
+          topic: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          language?: string | null
+          topic?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          language?: string | null
+          topic?: string | null
+        }
+        Relationships: []
+      }
+      bookings: {
+        Row: {
+          admin_notes: string | null
+          booking_status: string
+          created_at: string
+          customer_name: string
+          id: string
+          message: string | null
+          mobile: string
+          preferred_date: string
+          preferred_time: string
+          progress_status: string
+          reference: string
+          service: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          booking_status?: string
+          created_at?: string
+          customer_name: string
+          id?: string
+          message?: string | null
+          mobile: string
+          preferred_date: string
+          preferred_time: string
+          progress_status?: string
+          reference: string
+          service: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          booking_status?: string
+          created_at?: string
+          customer_name?: string
+          id?: string
+          message?: string | null
+          mobile?: string
+          preferred_date?: string
+          preferred_time?: string
+          progress_status?: string
+          reference?: string
+          service?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      enquiries: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          message: string
+          mobile: string
+          name: string
+          status: string
+          subject: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message: string
+          mobile: string
+          name: string
+          status?: string
+          subject?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string
+          mobile?: string
+          name?: string
+          status?: string
+          subject?: string | null
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          active: boolean
+          category: string
+          created_at: string
+          description: string
+          handled_at_shop: boolean
+          id: string
+          keywords: string
+          name: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          active?: boolean
+          category: string
+          created_at?: string
+          description?: string
+          handled_at_shop?: boolean
+          id?: string
+          keywords?: string
+          name: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          description?: string
+          handled_at_shop?: boolean
+          id?: string
+          keywords?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          address: string
+          announcement: string
+          email: string
+          hours: string
+          id: number
+          phone: string
+          updated_at: string
+          whatsapp: string
+        }
+        Insert: {
+          address?: string
+          announcement?: string
+          email?: string
+          hours?: string
+          id?: number
+          phone?: string
+          updated_at?: string
+          whatsapp?: string
+        }
+        Update: {
+          address?: string
+          announcement?: string
+          email?: string
+          hours?: string
+          id?: number
+          phone?: string
+          updated_at?: string
+          whatsapp?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_booking: {
+        Args: {
+          _date: string
+          _message: string
+          _mobile: string
+          _name: string
+          _service: string
+          _time: string
+        }
+        Returns: string
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      track_booking: {
+        Args: { _mobile: string; _reference: string }
+        Returns: {
+          booking_status: string
+          preferred_date: string
+          preferred_time: string
+          progress_status: string
+          reference: string
+          service: string
+          updated_at: string
+        }[]
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +370,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
