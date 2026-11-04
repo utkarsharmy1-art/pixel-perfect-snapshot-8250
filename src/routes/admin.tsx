@@ -315,11 +315,12 @@ function AiPanel({ rows }: { rows: { language: string | null; topic: string | nu
 function SettingsPanel() {
   const qc = useQueryClient();
   const { data, isLoading } = useQuery({ queryKey: ["site_settings"], queryFn: async () => { const { data, error } = await supabase.from("site_settings").select("*").eq("id", 1).single(); if (error) throw error; return data; } });
-  const [form, setForm] = useState<Record<string, string> | null>(null);
+  type F = { phone: string; email: string; address: string; hours: string; announcement: string };
+  const [form, setForm] = useState<F | null>(null);
   useEffect(() => { if (data && !form) setForm({ phone: data.phone, email: data.email, address: data.address, hours: data.hours, announcement: data.announcement }); }, [data, form]);
   if (isLoading || !form) return <Loader2 className="mt-8 animate-spin" />;
   async function save() {
-    const { error } = await supabase.from("site_settings").update({ ...form, whatsapp: form!.phone, updated_at: new Date().toISOString() }).eq("id", 1);
+    const { error } = await supabase.from("site_settings").update({ ...form, whatsapp: form.phone, updated_at: new Date().toISOString() }).eq("id", 1);
     if (error) return void toast.error(error.message);
     toast.success("Saved — the website shows the new details");
     void qc.invalidateQueries({ queryKey: ["site_settings"] });

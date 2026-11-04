@@ -72,9 +72,9 @@ export const askAssistant = createServerFn({ method: "POST" })
     } catch (e) {
       console.error("assistant error", e);
       const msg =
-        e instanceof GatewayError && e.status === 429
+        e instanceof GatewayError && e.httpStatus === 429
           ? "The assistant is busy right now. Please try again in a minute."
-          : e instanceof GatewayError && e.status === 402
+          : e instanceof GatewayError && e.httpStatus === 402
             ? "The assistant is temporarily unavailable. Please contact us on WhatsApp."
             : "Something went wrong. Please try again or contact us on WhatsApp.";
       return { ok: false as const, text: msg, topic: "general" };
