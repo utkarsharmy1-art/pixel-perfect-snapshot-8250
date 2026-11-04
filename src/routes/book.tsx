@@ -88,13 +88,13 @@ function BookPage() {
       <PageHero eyebrow="Appointments" title="Book an appointment">Choose a convenient time. We'll confirm before your visit.</PageHero>
       <section className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
         <form onSubmit={submit} noValidate className="grid gap-5 rounded-3xl border border-border bg-card p-6 shadow-card sm:grid-cols-2 sm:p-8">
-          <Field id="name" label="Customer name" error={errors.name}>
+          <Field id="name" label="Customer name" error={errors["name"]}>
             <Input id="name" value={form.name} onChange={set("name")} maxLength={100} autoComplete="name" />
           </Field>
-          <Field id="mobile" label="Mobile number" error={errors.mobile}>
+          <Field id="mobile" label="Mobile number" error={errors["mobile"]}>
             <Input id="mobile" value={form.mobile} onChange={set("mobile")} inputMode="numeric" maxLength={10} placeholder="10-digit number" autoComplete="tel-national" />
           </Field>
-          <Field id="service" label="Service required" error={errors.service} className="sm:col-span-2">
+          <Field id="service" label="Service required" error={errors["service"]} className="sm:col-span-2">
             <select id="service" value={form.service} onChange={set("service")} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
               <option value="">Select a service</option>
               {form.service && !services.some((s) => s.name === form.service) && <option value={form.service}>{form.service}</option>}
@@ -102,10 +102,10 @@ function BookPage() {
               <option value="Other / Not sure">Other / Not sure</option>
             </select>
           </Field>
-          <Field id="date" label="Preferred date" error={errors.date}>
+          <Field id="date" label="Preferred date" error={errors["date"]}>
             <Input id="date" type="date" min={today()} value={form.date} onChange={set("date")} />
           </Field>
-          <Field id="time" label="Preferred time" error={errors.time}>
+          <Field id="time" label="Preferred time" error={errors["time"]}>
             <select id="time" value={form.time} onChange={set("time")} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
               <option value="">Select a time</option>
               {TIME_SLOTS.map((t) => <option key={t}>{t}</option>)}
@@ -125,7 +125,7 @@ function BookPage() {
   );
 }
 
-function Field({ id, label, error, className, children }: { id: string; label: string; error?: string; className?: string; children: React.ReactNode }) {
+function Field({ id, label, error, className, children }: { id: string; label: string; error?: string | undefined; className?: string; children: React.ReactNode }) {
   return (
     <div className={className}>
       <Label htmlFor={id} className="mb-1.5 block text-navy">{label}</Label>

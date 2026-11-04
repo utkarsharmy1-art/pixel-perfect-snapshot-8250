@@ -100,7 +100,7 @@ function ContactPage() {
               <div>
                 <Label htmlFor="c-msg" className="mb-1.5 block text-navy">Message</Label>
                 <Textarea id="c-msg" rows={5} maxLength={2000} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-                {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
+                {errors["message"] && <p className="mt-1 text-xs text-destructive">{errors["message"]}</p>}
               </div>
               <Button type="submit" variant="gold" disabled={loading}>{loading && <Loader2 className="animate-spin" />} Send enquiry</Button>
             </form>
