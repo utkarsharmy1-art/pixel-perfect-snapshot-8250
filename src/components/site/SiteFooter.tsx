@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { Logo } from "./Logo";
-import { BUSINESS, telLink, waLink } from "@/lib/business";
+import { BUSINESS, waLink } from "@/lib/business";
+import { useSiteInfo } from "@/lib/site-settings";
 
 export function SiteFooter() {
+  const info = useSiteInfo();
   return (
     <footer className="no-print bg-navy-gradient text-navy-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
@@ -33,11 +35,11 @@ export function SiteFooter() {
         <div>
           <h3 className="text-sm font-semibold text-gold">Visit us</h3>
           <ul className="mt-4 space-y-3 text-sm text-navy-foreground/75">
-            <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />{BUSINESS.address}</li>
-            <li className="flex gap-2"><Phone className="h-4 w-4 text-gold" /><a href={telLink} className="hover:text-gold">{BUSINESS.phoneDisplay}</a></li>
-            <li className="flex gap-2"><Mail className="h-4 w-4 text-gold" /><a href={`mailto:${BUSINESS.email}`} className="break-all hover:text-gold">{BUSINESS.email}</a></li>
-            <li className="flex gap-2"><Clock className="h-4 w-4 text-gold" />{BUSINESS.hours}</li>
-            <li><a href={waLink("Hello ALL IN ONE, I have an enquiry.")} target="_blank" rel="noreferrer" className="font-semibold text-gold hover:underline">Chat on WhatsApp →</a></li>
+            <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />{info.address}</li>
+            <li className="flex gap-2"><Phone className="h-4 w-4 text-gold" /><a href={info.tel} className="hover:text-gold">{info.phoneDisplay}</a></li>
+            <li className="flex gap-2"><Mail className="h-4 w-4 text-gold" /><a href={`mailto:${info.email}`} className="break-all hover:text-gold">{info.email}</a></li>
+            <li className="flex gap-2"><Clock className="h-4 w-4 text-gold" />{info.hours}</li>
+            <li><a href={waLink("Hello ALL IN ONE, I have an enquiry.", info.phone)} target="_blank" rel="noreferrer" className="font-semibold text-gold hover:underline">Chat on WhatsApp →</a></li>
           </ul>
         </div>
       </div>

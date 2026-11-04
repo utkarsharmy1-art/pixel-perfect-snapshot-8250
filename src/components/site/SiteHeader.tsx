@@ -3,7 +3,7 @@ import { Menu, X, Phone } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
-import { telLink } from "@/lib/business";
+import { useSiteInfo } from "@/lib/site-settings";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -16,7 +16,12 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const info = useSiteInfo();
   return (
+    <>
+    {info.announcement && (
+      <div className="no-print bg-gold px-4 py-2 text-center text-sm font-semibold text-gold-foreground">{info.announcement}</div>
+    )}
     <header className="no-print sticky top-0 z-40 border-b border-border/70 glass-light">
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Logo />
@@ -42,7 +47,7 @@ export function SiteHeader() {
         </div>
         <div className="flex items-center gap-1 lg:hidden">
           <Button asChild variant="ghost" size="icon" aria-label="Call us">
-            <a href={telLink}><Phone /></a>
+            <a href={info.tel}><Phone /></a>
           </Button>
           <Button variant="ghost" size="icon" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}>
             {open ? <X /> : <Menu />}
@@ -62,5 +67,6 @@ export function SiteHeader() {
         </nav>
       )}
     </header>
+    </>
   );
 }

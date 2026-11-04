@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { BUSINESS, mapsDirections, mapsEmbed, telLink, waLink } from "@/lib/business";
+import { BUSINESS, mapsDirections, mapsEmbed, waLink } from "@/lib/business";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteInfo } from "@/lib/site-settings";
 
 export const Route = createFileRoute("/contact")({
   head: () => seo("Contact ALL IN ONE – Queens Park, Mira Road East", "Call, WhatsApp or visit ALL IN ONE at Bella Dona 4, Queens Park, Mira Road East. Open Monday to Sunday, 10 AM to 9 PM."),
@@ -24,6 +25,7 @@ const schema = z.object({
 });
 
 function ContactPage() {
+  const site = useSiteInfo();
   const [form, setForm] = useState({ name: "", mobile: "", email: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
@@ -43,10 +45,10 @@ function ContactPage() {
 
   const info = [
     { icon: User, label: "Owner", value: BUSINESS.owner },
-    { icon: Phone, label: "Phone / WhatsApp", value: BUSINESS.phoneDisplay, href: telLink },
-    { icon: Mail, label: "Email", value: BUSINESS.email, href: `mailto:${BUSINESS.email}` },
-    { icon: MapPin, label: "Address", value: BUSINESS.address },
-    { icon: Clock, label: "Business hours", value: BUSINESS.hours },
+    { icon: Phone, label: "Phone / WhatsApp", value: site.phoneDisplay, href: site.tel },
+    { icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}` },
+    { icon: MapPin, label: "Address", value: site.address },
+    { icon: Clock, label: "Business hours", value: site.hours },
   ];
 
   return (
@@ -68,8 +70,8 @@ function ContactPage() {
               ))}
             </ul>
             <div className="mt-6 flex flex-wrap gap-2">
-              <Button asChild><a href={telLink}><Phone /> Call Now</a></Button>
-              <Button asChild variant="whatsapp"><a href={waLink("Hello ALL IN ONE, I have an enquiry.")} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp Now</a></Button>
+              <Button asChild><a href={site.tel}><Phone /> Call Now</a></Button>
+              <Button asChild variant="whatsapp"><a href={waLink("Hello ALL IN ONE, I have an enquiry.", site.phone)} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp Now</a></Button>
               <Button asChild variant="gold"><a href={mapsDirections} target="_blank" rel="noreferrer"><Navigation /> Get Directions</a></Button>
             </div>
           </div>
